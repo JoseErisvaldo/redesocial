@@ -1,9 +1,10 @@
 import './App.css'
+import RoutesApp from './Routes'
 
 function App() {
   return (
-    <div className="App">
-      <header className="">Hello</header>
+    <div className="flex h-screen w-full">
+      <RoutesApp />
     </div>
   )
 }
