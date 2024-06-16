@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import supabase from '../../Supabase'
 import Btn from '../UIComponents/Btns/Btn'
+import useFetchUser from '../Hooks/Api/useUser'
 
 const NewPost = ({ onPostSubmit }) => {
+  const { selectUser } = useFetchUser()
   const [selectedImage, setSelectedImage] = useState(null)
   const [file, setFile] = useState(null)
   const [description, setDescription] = useState('')
@@ -66,48 +68,52 @@ const NewPost = ({ onPostSubmit }) => {
   }
 
   return (
-    <div className="m-5 p-5 flex flex-col space-y-4">
-      {error && <div className="text-red-600">{error}</div>}
-      <div className="flex items-center space-x-3">
-        <img
-          src="https://ummrcakwdaeufujhnvrv.supabase.co/storage/v1/object/public/redemais/123.JPG"
-          alt="avatar"
-          className="w-12 h-12 rounded-full"
-        />
-        <textarea
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          className="border border-gray-300 w-full p-2 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Olá, José, no que você está pensando?"
-        />
-      </div>
-      <div className="relative w-44">
-        <label className="flex items-center justify-between text-lg bg-green-600 p-3 text-white rounded-3xl cursor-pointer">
-          <span>Adicionar foto </span>
-          <MdOutlineAddPhotoAlternate />
-          <input
-            type="file"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            onChange={handleImageChange}
-          />
-        </label>
-      </div>
-      {selectedImage && (
-        <div className="flex justify-center">
-          <img
-            src={selectedImage}
-            alt="selected"
-            className="w-44 h-44 rounded-lg"
+    <>
+      {selectUser.map(item => (
+        <div key={item.id} className="m-5 p-5 flex flex-col space-y-4">
+          {error && <div className="text-red-600">{error}</div>}
+          <div className="flex items-center space-x-3">
+            <img
+              src={item.photo}
+              alt="avatar"
+              className="w-12 h-12 rounded-full"
+            />
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              className="border border-gray-300 w-full p-2 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder={`Olá, ${item.name}, no que você está pensando?`}
+            />
+          </div>
+          <div className="relative w-44">
+            <label className="flex items-center justify-between text-lg bg-green-600 p-3 text-white rounded-3xl cursor-pointer">
+              <span>Adicionar foto </span>
+              <MdOutlineAddPhotoAlternate />
+              <input
+                type="file"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                onChange={handleImageChange}
+              />
+            </label>
+          </div>
+          {selectedImage && (
+            <div className="flex justify-center">
+              <img
+                src={selectedImage}
+                alt="selected"
+                className="w-44 h-44 rounded-lg"
+              />
+            </div>
+          )}
+          <Btn
+            submit="Enviar"
+            colorBg="green"
+            colorWhite="white"
+            onClick={handleSubmit}
           />
         </div>
-      )}
-      <Btn
-        submit="Enviar"
-        colorBg="green"
-        colorWhite="white"
-        onClick={handleSubmit}
-      />
-    </div>
+      ))}
+    </>
   )
 }
 
