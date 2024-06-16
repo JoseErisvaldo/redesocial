@@ -1,6 +1,6 @@
 import React from 'react'
 import { CgHome, CgProfile } from 'react-icons/cg'
-import { CiSettings } from 'react-icons/ci'
+import { CiLogin, CiSettings } from 'react-icons/ci'
 import { FcLike } from 'react-icons/fc'
 import { TiMessages } from 'react-icons/ti'
 
@@ -13,7 +13,7 @@ const NavItem = ({ icon, label }) => (
 
 export default function Sidebar() {
   return (
-    <div className="hidden h-full w-64 flex-col md:flex">
+    <div className="hidden h-full w-64 flex-col md:flex ">
       <div className="flex h-16 items-center justify-between px-4 font-semibold">
         <div className="flex items-center gap-2 justify-center">
           <span className="text-3xl flex item-center">
@@ -37,6 +37,7 @@ export default function Sidebar() {
           <NavItem icon={<TiMessages />} label="Messages" />
           <NavItem icon={<FcLike />} label="Likes" />
           <NavItem icon={<CiSettings />} label="Settings" />
+          <NavItem icon={<CiLogin />} label="Sair" />
         </nav>
       </div>
     </div>

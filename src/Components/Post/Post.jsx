@@ -5,6 +5,7 @@ import {
   BiCommentDetail,
   BiHeart
 } from 'react-icons/bi'
+import NewDate from '../UIComponents/NewDate/NewDate'
 
 export default function Post({ user }) {
   console.log(user)
@@ -26,6 +27,7 @@ export default function Post({ user }) {
           </div>
           <div className="text-sm text-gray-500">@{user.userId}</div>
         </div>
+        <NewDate date={user.created_at} />
         <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full">
           <BiDotsHorizontalRounded size={20} />
         </button>

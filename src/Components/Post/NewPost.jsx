@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Btn from '../../UIComponents/Btns/Btn'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import supabase from '../../Supabase'
+import Btn from '../UIComponents/Btns/Btn'
 
 const NewPost = () => {
   const [selectedImage, setSelectedImage] = useState(null)
