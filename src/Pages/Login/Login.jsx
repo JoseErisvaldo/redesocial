@@ -51,7 +51,9 @@ export default function Login() {
 
   return (
     <div className="flex flex-wrap gap-5 justify-center items-center w-full h-full">
-      <Logo size={96} />
+      <div className="w-96 h-96">
+        <Logo size={96} />
+      </div>
       <div className="border p-10 flex flex-col gap-5">
         <div className="font-bold text-3xl text-orange-600">
           Seja bem vindo(a)
