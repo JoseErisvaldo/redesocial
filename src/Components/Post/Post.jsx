@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BiDotsHorizontalRounded,
   BiShareAlt,
@@ -8,8 +8,6 @@ import {
 import NewDate from '../UIComponents/NewDate/NewDate'
 
 export default function Post({ user }) {
-  console.log(user)
-
   return (
     <div className="rounded-lg bg-white p-4 shadow ">
       <div className="flex items-center gap-3">
