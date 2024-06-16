@@ -4,23 +4,44 @@ import supabase from '../../../Supabase'
 const useFetchPostsData = () => {
   const [selectPostBd, setSelectPostBd] = useState([])
 
-  const fetchPosts = async () => {
-    try {
-      const { data: redemais_post, error } = await supabase
-        .from('redemais_post')
-        .select('*')
-      if (error) {
-        throw error
-      }
-      setSelectPostBd(redemais_post)
-    } catch (error) {
-      console.error('Erro ao buscar os posts:', error.message)
-    }
+  const fetchPosts = () => {
+    return supabase
+      .from('redemais_post')
+      .select('*')
+      .then(({ data, error }) => {
+        if (error) {
+          throw error
+        }
+        return data
+      })
+  }
+
+  const fetchUsers = () => {
+    return supabase
+      .from('redemais_users')
+      .select('*')
+      .then(({ data, error }) => {
+        if (error) {
+          throw error
+        }
+        return data
+      })
   }
 
   useEffect(() => {
-    fetchPosts()
+    Promise.all([fetchPosts(), fetchUsers()])
+      .then(([postData, usersData]) => {
+        const combinedData = postData.map(post => {
+          const user = usersData.find(user => user.userId === post.userId)
+          return { ...post, user }
+        })
+        setSelectPostBd(combinedData)
+      })
+      .catch(error => {
+        console.error('Erro ao obter os dados:', error)
+      })
   }, [])
+
 
   return {
     selectPostBd,
