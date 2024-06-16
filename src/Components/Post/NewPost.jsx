@@ -3,7 +3,7 @@ import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import supabase from '../../Supabase'
 import Btn from '../UIComponents/Btns/Btn'
 
-const NewPost = () => {
+const NewPost = ({ onPostSubmit }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [file, setFile] = useState(null)
   const [description, setDescription] = useState('')
@@ -37,11 +37,10 @@ const NewPost = () => {
         .from('redemais')
         .upload(`public/${file.name}`, file, { cacheControl: '3600' })
 
-      console.log('Dados de upload:', uploadData)
-
       if (uploadError) {
         throw uploadError
       }
+
       const { data: insertData, error: insertError } = await supabase
         .from('redemais_post')
         .insert([
@@ -56,6 +55,10 @@ const NewPost = () => {
       }
 
       console.log('Dados inseridos:', insertData)
+      setDescription('')
+      setFile('')
+      setSelectedImage('')
+      onPostSubmit()
     } catch (error) {
       console.error('Erro ao enviar o post:', error.message)
       setError('Erro ao enviar o post. Por favor, tente novamente.')
@@ -72,6 +75,7 @@ const NewPost = () => {
           className="w-12 h-12 rounded-full"
         />
         <textarea
+          value={description}
           onChange={e => setDescription(e.target.value)}
           className="border border-gray-300 w-full p-2 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Olá, José, no que você está pensando?"

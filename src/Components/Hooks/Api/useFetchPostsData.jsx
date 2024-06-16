@@ -4,7 +4,7 @@ import supabase from '../../../Supabase'
 const useFetchPostsData = () => {
   const [selectPostBd, setSelectPostBd] = useState([])
 
-  const fetchPost = async () => {
+  const fetchPosts = async () => {
     try {
       const { data: redemais_post, error } = await supabase
         .from('redemais_post')
@@ -19,11 +19,12 @@ const useFetchPostsData = () => {
   }
 
   useEffect(() => {
-    fetchPost()
+    fetchPosts()
   }, [])
 
   return {
-    selectPostBd
+    selectPostBd,
+    fetchPosts
   }
 }
 

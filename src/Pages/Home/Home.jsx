@@ -5,7 +5,6 @@ import NewPost from '../../Components/Post/NewPost'
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <NewPost />
       <MainContent />
     </div>
   )
